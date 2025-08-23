@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>DevOps Roast — Ruthless Infrastructure Improvement</title>
+
+      <meta name="description" content="DevOps Roast: honest infra audits, golden paths, and open-source modules. We roast your infrastructure so it doesn’t burn you later." />
+      <meta property="og:title" content="DevOps Roast" />
+      <meta property="og:description" content="Honest infrastructure audits + fixes. Terraform, Kubernetes, GitHub Actions." />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="/assets/og.png" />
+
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+      <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+      <!-- Header -->
+      <header>
+        <div class="container nav">
+          <a class="brand" href="#">
+            <svg class="logo" viewBox="0 0 100 100" aria-hidden="true" role="img" style="--fire-top: #ffe98a; --fire-mid: #ff9a3c; --fire-deep: #ff3d00; --fire-core: #fffbe6">
+              <defs>
+                <!-- Hex path once, reused for clip -->
+                <polygon id="hex-shape" points="50,4 92,28 92,72 50,96 8,72 8,28" />
+
+                <clipPath id="hex-clip">
+                  <use href="#hex-shape" />
+                </clipPath>
+
+                <!-- Gradients / glow -->
+                <linearGradient id="grad-outer" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="var(--fire-top)" />
+                  <stop offset="55%" stop-color="var(--fire-mid)" />
+                  <stop offset="100%" stop-color="var(--fire-deep)" />
+                </linearGradient>
+                <linearGradient id="grad-mid" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="var(--fire-top)" />
+                  <stop offset="70%" stop-color="var(--fire-mid)" />
+                  <stop offset="100%" stop-color="var(--fire-deep)" />
+                </linearGradient>
+                <radialGradient id="grad-core" cx="50%" cy="25%" r="70%">
+                  <stop offset="0%" stop-color="var(--fire-core)" />
+                  <stop offset="45%" stop-color="var(--fire-top)" />
+                  <stop offset="100%" stop-color="var(--fire-mid)" />
+                </radialGradient>
+                <linearGradient id="grad-highlight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fff" stop-opacity=".9" />
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+                </linearGradient>
+                <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <!-- Flame as a symbol with a 64x64 viewBox (easy to size/center) -->
+                <symbol id="flame" viewBox="0 0 64 64">
+                  <!-- Outer flame -->
+                  <path
+                    d="M32 2
+               C36 9, 43 17, 41 26
+               C44 24, 49 27, 50 34
+               C51 46, 43 57, 31 60
+               C21 62, 12 56, 12 45
+               C12 37, 17 30, 24 26
+               C20 35, 26 45, 34 49
+               C32 41, 36 31, 32 2 Z"
+                    fill="url(#grad-outer)"
+                    filter="url(#glow)" />
+                  <!-- Mid flame -->
+                  <path
+                    d="M31.8 20.5
+               C35.8 26, 38.5 31.5, 36.8 37.5
+               C38.8 36, 41.8 38.5, 41.2 43.2
+               C40.4 49.6, 34.4 54.5, 27.6 53.8
+               C21.3 53.2, 18.4 48.5, 19.2 43.4
+               C19.9 39.1, 23 35.7, 26.8 33.7
+               C25.4 37.6, 27.4 42.2, 31.2 44.6
+               C31 39.9, 33.2 31.6, 31.8 20.5 Z"
+                    fill="url(#grad-mid)" />
+                  <!-- Core -->
+                  <path
+                    d="M30.8 31.5
+               C33.6 34.8, 34.9 38.6, 33.4 42.1
+               C32.3 44.7, 29.4 46.4, 26.4 45.7
+               C23.2 45.0, 21.3 42.3, 21.6 39.3
+               C21.9 36.2, 23.9 33.9, 26.5 32.5
+               C25.9 34.4, 26.8 36.9, 28.8 38.3
+               C28.6 36.1, 29.6 33.9, 30.8 31.5 Z"
+                    fill="url(#grad-core)" />
+                  <!-- Highlights -->
+                  <path d="M24.5 27.8 C22.4 30.1, 21.0 33.0, 21.6 35.6" fill="none" stroke="url(#grad-highlight)" stroke-width="1.2" stroke-linecap="round" opacity=".65" />
+                  <path d="M35.8 23.2 C37.2 25.0, 38.2 27.4, 38.0 29.6" fill="none" stroke="url(#grad-highlight)" stroke-width="1.1" stroke-linecap="round" opacity=".6" />
+                </symbol>
+              </defs>
+
+              <!-- Draw hex outline -->
+              <use href="#hex-shape" fill="none" stroke="black" stroke-width="6" stroke-linejoin="round" />
+
+              <!-- Clip contents to hex and place the flame centered -->
+              <g clip-path="url(#hex-clip)">
+                <!-- 56×56 flame centered at (22,22) inside the 100×100 box -->
+                <use href="#flame" x="22" y="22" width="56" height="56" />
+              </g>
+            </svg>
+            <span class="wordmark">DevOps Roast</span>
+          </a>
+          <nav>
+            <a class="btn ghost" href="#services">Services</a>
+            <a class="btn ghost" href="#open-source">Open Source</a>
+            <a class="btn solid" href="mailto:contact@devops-roast.com?subject=Book%20a%20Roast">Book a Roast</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container">
+          <div class="kicker">We roast your infrastructure so it doesn’t burn you later!</div>
+          <h1>Ruthless Improvements</h1>
+          <!-- prettier-ignore -->
+          <p>
+            We deliver honest infrastructure audits (the <span class="mono">Roast</span>),
+            pragmatic remediation plans (the <span class="mono">Remedy</span>),
+            and help teams implement golden paths (the <span class="mono">Reinforcement</span>).
+            AWS, Kubernetes, Terraform, and GitHub Actions.
+          </p>
+          <div class="cta">
+            <a class="btn solid" href="mailto:contact@devops-roast.com?subject=Book%20a%20Roast">Book a Roast</a>
+            <a class="btn ghost" href="https://github.com/devops-roast" target="_blank" rel="noopener noreferrer">Visit GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Roast / Remedy / Reinforce -->
+      <section class="band">
+        <div class="container grid">
+          <div class="card">
+            <h3>Roast</h3>
+            <p>Fast, opinionated infrastructure assessment with risk scoring and clear recommendations delivered as a concise report.</p>
+          </div>
+          <div class="card">
+            <h3>Remedy</h3>
+            <p>Hands-on fixes and refactors: secure defaults, cost control, CI hardening, and platform guardrails.</p>
+          </div>
+          <div class="card">
+            <h3>Reinforce</h3>
+            <p>Golden paths, reusable modules, and enablement so your team can ship safely without us next time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="band">
+        <div class="container">
+          <h2 class="mono" style="font-size: 36px; margin: 0 0 14px">Services</h2>
+          <div class="list">
+            <div class="item">
+              <h4>Infrastructure Roast Report</h4>
+              <p class="muted">AWS/Kubernetes/Terraform audit with prioritized risks, diagrams, and a 30/60/90-day plan.</p>
+            </div>
+            <div class="item">
+              <h4>EKS &amp; Platform Baselines</h4>
+              <p class="muted">Secure, observable, cost-aware cluster setups with GitOps and sensible defaults.</p>
+            </div>
+            <div class="item">
+              <h4>CI/CD Hardening</h4>
+              <p class="muted">GitHub Actions policies, OIDC to cloud, SBOMs, provenance, and required checks.</p>
+            </div>
+            <div class="item">
+              <h4>Terraform Foundations</h4>
+              <p class="muted">Opinionated modules, environments, and drift-free workflows tailored to your org.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Open Source -->
+      <section id="open-source" class="band">
+        <div class="container">
+          <h2 class="mono" style="font-size: 36px; margin: 0 0 14px">Open Source</h2>
+          <p class="muted">We publish the same hardened modules and tooling we use with clients — open source, opinionated, and ready to drop into your stack.</p>
+          <div class="list" style="margin-top: 12px">
+            <div class="item">
+              <h4>
+                <a href="https://github.com/devops-roast/containers" target="_blank" rel="noopener noreferrer">containers</a>
+              </h4>
+              <p class="muted">
+                A well-maintained set of custom container images in a monorepo. A hands-on showcase of
+                <code>buildx bake</code>
+                , designed to be extensible, maintainable, and a solid baseline for an internal image hub.
+              </p>
+            </div>
+            <div class="item">
+              <h4>
+                <a href="https://github.com/devops-roast/github-actions" target="_blank" rel="noopener noreferrer">github-actions</a>
+              </h4>
+              <p class="muted">Opinionated, reusable composite actions and workflows that solve the everyday problems every org faces — generic, secure, and battle-tested.</p>
+            </div>
+            <div class="item">
+              <h4>
+                <a href="https://github.com/devops-roast/pre-commit-hooks" target="_blank" rel="noopener noreferrer">pre-commit-hooks</a>
+              </h4>
+              <p class="muted">A collection of practical pre-commit hooks in multiple languages — filling the gaps with must-have checks that should ship by default.</p>
+            </div>
+            <div class="item soon">
+              <span class="tag">Coming soon</span>
+              <h4>terramate-reference-architecture</h4>
+              <p class="muted">
+                A battle-tested reference architecture for structuring complex, multi-dimensional IaC repositories. A drop-in replacement for Terraform wrappers that focuses on what Terraform struggles with — templating — handled
+                transparently by Terramate so you can finally just write vanilla Terraform.
+              </p>
+            </div>
+            <div class="item soon">
+              <span class="tag">Coming soon</span>
+              <h4>terraform-aws-cell</h4>
+              <p class="muted">
+                An opinionated umbrella module for deploying production-grade “cells” in AWS (cell-based architectures) using modern tooling such as GitOps. Built for organizations that need scalable, secure, repeatable infra patterns.
+              </p>
+            </div>
+            <div class="item soon">
+              <span class="tag">Coming soon</span>
+              <h4>engineering-handbook</h4>
+              <p class="muted">
+                A living guide to how DevOps Roast engineers design, build, and deliver. It captures our values, preferred practices, and technical playbooks — from design principles and code review etiquette to automation, security, and
+                DevOps culture. Both an internal compass and a resource others can adapt.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="center">
+          <a class="btn ghost" href="https://github.com/orgs/devops-roast/repositories" target="_blank" rel="noopener noreferrer">Browse all repositories</a>
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="band">
+        <div class="container">
+          <h2 class="mono" style="font-size: 36px; margin: 0 0 14px">FAQ</h2>
+          <details>
+            <summary>What do I get from a roast?</summary>
+            <p>A short, actionable report: risks ranked by severity, quick wins, and a 30/60/90-day roadmap. We can implement it with you or enable your team.</p>
+          </details>
+          <details>
+            <summary>Who is this for?</summary>
+            <p>Engineering-led companies from seed to enterprise who want production-grade infrastructure without the ceremony.</p>
+          </details>
+          <details>
+            <summary>How do we start?</summary>
+            <!-- prettier-ignore -->
+            <p>
+              Email <a href="mailto:contact@devops-roast.com">contact@devops-roast.com</a> with a brief about your stack. We’ll schedule a discovery call and scope your Roast.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <div class="container foot">
+          <!-- prettier-ignore -->
+          <div class="small">
+            © <span id="y"></span> DevOps Roast · <a href="https://github.com/devops-roast" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="mailto:contact@devops-roast.com">contact@devops-roast.com</a>
+          </div>
+        </div>
+      </footer>
+
+      <script>
+        document.getElementById("y").textContent = new Date().getFullYear();
+      </script>
+    </body>
+  </html>
+</html>

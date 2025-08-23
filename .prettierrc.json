@@ -1,0 +1,24 @@
+{
+  "printWidth": 240,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "arrowParens": "always",
+  "trailingComma": "es5",
+  "htmlWhitespaceSensitivity": "ignore",
+  "proseWrap": "preserve",
+  "singleAttributePerLine": false,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 240
+      }
+    }
+  ]
+}
