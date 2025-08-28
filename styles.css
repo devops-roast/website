@@ -455,3 +455,10 @@ footer {
     scroll-snap-align: start;
   }
 }
+
+/* Hide navbar completely on small screens */
+@media (max-width: 720px) {
+  header nav {
+    display: none;
+  }
+}
