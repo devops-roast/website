@@ -230,3 +230,27 @@ summary { cursor: pointer; font-weight: 700; }
 @media (max-width: 720px) {
   header nav { display: none !important; }
 }
+
+/*  Bottom CTA spacing */
+:root {
+  --cta-height: 56px;   /* min touch height of the CTA */
+  --cta-gap: 16px;      /* visual gap from bottom */
+}
+
+/* Ensure CTA has that minimum height so our padding math is correct */
+@media (max-width: 720px) {
+  .mobile-cta { min-height: var(--cta-height); }
+
+  /* Add scroll room below all content so CTA never covers it */
+  body {
+    padding-bottom: calc(var(--cta-height) + var(--cta-gap) + env(safe-area-inset-bottom));
+  }
+
+  /* Extra padding on the last content section and footer (belt + suspenders) */
+  .band:last-of-type {
+    padding-bottom: calc(48px + var(--cta-height) + var(--cta-gap));
+  }
+  footer {
+    padding-bottom: calc(40px + var(--cta-height) + var(--cta-gap));
+  }
+}
